@@ -13,16 +13,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/home/:username', function(req, res, next) {
-  res.cookie('username', req.params.username);
-  res.render('fablibs', {
-    username: req.params.username
-  });
-});
+// router.get('/home/:username', function(req, res, next) {
+//   res.cookie('username', req.params.username);
+//   res.render('fablibs', {
+//     username: req.params.username
+//   });
+// });
 
 router.get('/update', function(req, res, next) {
   res.render('users', {
-    username: req.cookies.username
+    username: res.cookie.username
   });
 });
 
@@ -47,7 +47,8 @@ router.post('/update', function(req, res, next) {
 });
 
 
-router.get('/home', function(req, res, next) {
+router.get('/home/:username', function(req, res, next) {
+  res.cookie('username', req.params.username);
   var newWords = {
     noun: "",
     verb: "",
@@ -64,14 +65,18 @@ router.get('/home', function(req, res, next) {
   knex.column('word').from('nouns').orderByRaw('random() limit 1').then(
     function(data){
       newWords.noun =  data[0].word;
-      var stream = fs.createReadStream('fablibs.txt').pipe(replace(/NOUN/g, newWords.noun)).pipe(replace(/VERB/g, newWords.verb)).pipe(replace(/ADJECTIVE/g, newWords.adj));
+      var stream = fs.createReadStream('fablibs.txt').pipe(replace(/NOUN/g, newWords.noun))
+      .pipe(replace(/VERB/g, newWords.verb)).pipe(replace(/ADJECTIVE/g, newWords.adj));
       var wStream = fs.createWriteStream('fablibbed.txt');
 
       stream.on("data", function(data){
         wStream.write(data);
         fs.readFile('fablibbed.txt','utf8', function( err, data ){
           if ( err ) res.send('error:' + err);
-          res.render('fablibs', {output: data});
+          res.render('fablibs', {
+            output: data,
+            username: req.cookies.username
+          });
         })
       });
       stream.on("end", function(){
@@ -110,6 +115,7 @@ router.get('/home', function(req, res, next) {
       router.get('/home', function(req, res, next) {
         fs.readFile('fablibs.txt', 'utf8', function(err, data) {
           if (err) res.send('error:' + err);
+          console.log(req.cookies.username);
           res.render('fablibs', {
             output: data,
             username: req.cookies.username
@@ -148,7 +154,7 @@ router.get('/home', function(req, res, next) {
         fs.writeFile('fablibs.txt', req.body.fablibs, 'utf8', function(err) {
           if (err) res.send('error:' + err);
         });
-        res.redirect('/home');
+        res.redirect('/home/'+req.cookies.username);
       });
 
       router.post('/delete', function(req, res, next) {
