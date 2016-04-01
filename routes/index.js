@@ -18,7 +18,9 @@ router.get('/home/:username', function(req, res, next) {
   res.render('fablibs', {username: req.params.username});
 });
 
-
+router.get('/update', function(req, res, next) {
+  res.render('users', {username: req.cookies.username});
+});
 
 router.post('/user/register', function(req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);
