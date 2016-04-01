@@ -3,6 +3,7 @@ var router = express.Router();
 var knex = require('knex')(require('../knexfile')['development']);
 var bcrypt = require('bcryptjs');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('auth', {
@@ -42,5 +43,19 @@ router.post('/user/login', function(req, res, next) {
       }
     });
 });
+
+router.get('/fablibs', function(req, res, next) {
+  res.render('fablibs');
+});
+
+router.post('/addnoun', function(req, res, next) {
+  knex('nouns')
+  .insert(req.body)
+  .then(function ( response ){
+    res.redirect('/fablibs');
+  })
+});
+
+
 
 module.exports = router;
