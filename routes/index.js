@@ -112,16 +112,15 @@ router.get('/home/:username', function(req, res, next) {
           });
       });
 
-      // router.get('/home/:username', function(req, res, next) {
-      //   fs.readFile('fablibs.txt', 'utf8', function(err, data) {
-      //     if (err) res.send('error:' + err);
-      //     console.log(req.cookies.username);
-      //     res.render('fablibs', {
-      //       output: data,
-      //       username: req.cookies.username
-      //     });
-      //   })
-      // });
+      router.get('/home', function(req, res, next) {
+        fs.readFile('fablibs.txt', 'utf8', function(err, data) {
+          if (err) res.send('error:' + err);
+          console.log(req.cookies.username);
+          res.render('fablibs', {
+            username: req.cookies.username
+          });
+        })
+      });
 
       router.get('/logout', function(req, res, next) {
         res.clearCookie('username');
