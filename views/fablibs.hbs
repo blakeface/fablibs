@@ -1,8 +1,25 @@
-<h1>Welcome, {{username}}</h1>
+<div class="welcome">
+  <h1>Welcome, {{username}}</h1>
+</div>
 
-<a href="/logout">Logout</a>
-<a href="/update">Update Info</a>
-<h3>ADD A WORD, TURD:</h3>
+<div class="fab">
+
+<h3>FAB-LIB IT:</h3>
+<form class="fablibsBox" action="/translate" method="post">
+  <input type="text" name="fablibs" placeholder="input your sentence here">
+</form>
+
+<p class='instruction'>
+  Use the keywords 'NOUN', 'VERB', or 'ADJECTIVE' (case-sensitive) to populate a knee-slapping phrase.<br>Verbs should be in present tense.<br>Example: Alan's ADJECTIVE NOUN VERB like a baws.
+</p>
+
+<p class="output">
+  {{output}}
+</p>
+</div>
+<div class="contribute">
+
+<h3>Contribute by adding words:</h3>
 <form action="/addnoun" method="post">
   <label for="noun">Noun</label>
   <input type="text" name="word" placeholder="ex: cat, burrito, Alan">
@@ -16,19 +33,9 @@
   <input type="text" name="word" placeholder="ex: moist, succulent, purple">
 </form>
 
+<a href="/logout">Logout</a>
+<a href="/update">Update Info</a>
 <form action="/delete" method="post">
-  <input type="submit" name="delete" value="delete">
+  <input type="submit" name="delete" value="delete user... forever">
 </form>
-
-<h3>FAB-LIB IT:</h3>
-<p>
-  use the keywords 'NOUN', 'VERB', or 'ADJECTIVE' (case-sensitive) to populate a knee-slapping phrase. Verbs should be in present tense.<br>Example: Alan's ADJECTIVE NOUN VERB like a baws.
-</p>
-<form class="fablibsBox" action="/translate" method="post">
-  <input type="text" name="fablibs">
-</form>
-
-
-<p>
-  {{output}}
-</p>
+</div>

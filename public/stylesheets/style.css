@@ -1,8 +1,31 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: rgba(187, 189, 108, .5)
 }
 
-a {
-  color: #00B7FF;
+.output {
+  font-size: 80px;
+  font-weight: 900;
+}
+
+.instruction {
+  width: 65vw;
+}
+
+.fablibsBox {
+  width: 80vw;
+}
+.fablibsBox input{
+  width: 100%;
+}
+
+.fab, .welcome, .contribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fab h3 {
+
 }
