@@ -14,11 +14,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home/:username', function(req, res, next) {
-  res.cookie('username', req.body.username);
+  res.cookie('username', req.params.username);
   res.render('fablibs', {username: req.params.username});
 });
 
-
+router.get('/update', function(req, res, next) {
+  res.render('users', {username: req.cookies.username});
+});
 
 router.post('/user/register', function(req, res, next) {
   var hash = bcrypt.hashSync(req.body.password, 8);
@@ -70,6 +72,11 @@ router.get('/home', function(req, res, next) {
   )
 })
 
+router.get('/logout', function(req, res, next) {
+  res.clearCookie('username');
+  res.redirect('/');
+});
+
 router.post('/addnoun', function(req, res, next) {
   knex('nouns')
   .insert(req.body)
@@ -93,11 +100,20 @@ router.post('/addadj', function(req, res, next) {
 });
 
 router.post('/translate', function(req, res, next) {
-  console.log(req.params.userName);
   fs.writeFile('fablibs.txt', req.body.fablibs, 'utf8', function( err ){
     if ( err ) res.send('error:' + err);
   });
   res.redirect('/home');
+});
+
+router.post('/delete', function(req, res, next) {
+  knex('users')
+  .where('userName', req.cookies.username)
+  .del()
+  .then(function (response) {
+    res.clearCookie('username');
+    res.redirect('/');
+  })
 });
 
 
