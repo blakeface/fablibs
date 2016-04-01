@@ -19,8 +19,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/home', function(req, res, next) {
-  res.render('index');
+router.get('/home/:username', function(req, res, next) {
+  res.render('fablibs', {username: req.params.username});
 });
 
 
@@ -39,17 +39,17 @@ router.post('/user/register', function(req, res, next) {
 
 router.post('/user/login', function(req, res, next) {
   knex('users')
-  .where('userName', '=', req.body.username.toLowerCase())
-  .first()
-  .then(function(response) {
-    if (response && bcrypt.compareSync(req.body.password, response.password)) {
-      res.redirect('/home');
-    } else {
-      res.render('auth', {
-        error: 'Invalid username or password'
-      });
-    }
-  });
+    .where('userName', '=', req.body.username.toLowerCase())
+    .first()
+    .then(function(response) {
+      if (response && bcrypt.compareSync(req.body.password, response.password)) {
+        res.redirect('/home/'+response.userName);
+      } else {
+        res.render('auth', {
+          error: 'Invalid username or password'
+        });
+      }
+    });
 });
 
 router.get('/fablibs', function(req, res, next) {
