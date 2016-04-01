@@ -3,6 +3,7 @@ var router = express.Router();
 var knex = require('knex')(require('../knexfile')['development']);
 var bcrypt = require('bcryptjs');
 var fs = require('fs');
+var setCookie = require('set-cookie-parser');
 
 
 /* GET home page. */
@@ -13,6 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home/:username', function(req, res, next) {
+  res.cookie('username', req.body.username);
   res.render('fablibs', {username: req.params.username});
 });
 
@@ -45,7 +47,7 @@ router.post('/user/login', function(req, res, next) {
     });
 });
 
-router.get('/fablibs', function(req, res, next) {
+router.get('/home', function(req, res, next) {
   fs.readFile('fablibs.txt','utf8', function( err, data ){
     if ( err ) res.send('error:' + err);
     res.render('fablibs', {output: data});
@@ -56,30 +58,30 @@ router.post('/addnoun', function(req, res, next) {
   knex('nouns')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home');
   })
 });
 router.post('/addverb', function(req, res, next) {
   knex('verbs')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home');
   })
 });
 router.post('/addadj', function(req, res, next) {
   knex('adjectives')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home');
   })
 });
 
 router.post('/translate', function(req, res, next) {
-  console.log(req.body.fablibs);
+  console.log(req.params.userName);
   fs.writeFile('fablibs.txt', req.body.fablibs, 'utf8', function( err ){
     if ( err ) res.send('error:' + err);
   });
-  res.redirect('/fablibs')
+  res.redirect('/home');
 });
 
 
