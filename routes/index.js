@@ -6,7 +6,6 @@ var fs = require('fs');
 var replace = require('stream-replace');
 
 var max = knex('nouns');
-console.log(max);
 // var noun = knex('nouns')
 // .where('id', Math.floor(Math.random() * nounMax)
 //   verb,
@@ -19,8 +18,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/home/:username', function(req, res, next) {
-  res.render('fablibs', {username: req.params.username});
+router.get('/home', function(req, res, next) {
+  res.render('index');
 });
 
 
@@ -39,17 +38,17 @@ router.post('/user/register', function(req, res, next) {
 
 router.post('/user/login', function(req, res, next) {
   knex('users')
-    .where('userName', '=', req.body.username.toLowerCase())
-    .first()
-    .then(function(response) {
-      if (response && bcrypt.compareSync(req.body.password, response.password)) {
-        res.redirect('/home/'+response.userName);
-      } else {
-        res.render('auth', {
-          error: 'Invalid username or password'
-        });
-      }
-    });
+  .where('userName', '=', req.body.username.toLowerCase())
+  .first()
+  .then(function(response) {
+    if (response && bcrypt.compareSync(req.body.password, response.password)) {
+      res.redirect('/home');
+    } else {
+      res.render('auth', {
+        error: 'Invalid username or password'
+      });
+    }
+  });
 });
 
 router.get('/fablibs', function(req, res, next) {
@@ -67,21 +66,21 @@ router.post('/addnoun', function(req, res, next) {
   knex('nouns')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home');
   })
 });
 router.post('/addverb', function(req, res, next) {
   knex('verbs')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home/:username');
   })
 });
 router.post('/addadj', function(req, res, next) {
   knex('adjectives')
   .insert(req.body)
   .then(function ( response ){
-    res.redirect('/fablibs');
+    res.redirect('/home/:username');
   })
 });
 
@@ -90,7 +89,7 @@ router.post('/translate', function(req, res, next) {
   fs.writeFile('fablibs.txt', req.body.fablibs, 'utf8', function( err ){
     if ( err ) res.send('error:' + err);
   });
-  res.redirect('/fablibs')
+  res.redirect('/home/:username')
 });
 
 
