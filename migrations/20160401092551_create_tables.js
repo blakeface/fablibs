@@ -19,12 +19,17 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.string('word');
     })
+
   ])
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('users');
-  return knex.schema.dropTable('nouns');
-  return knex.schema.dropTable('verbs');
-  return knex.schema.dropTable('adjectives');
+  return Promise.all([
+
+    knex.schema.dropTable('users');
+    knex.schema.dropTable('nouns');
+    knex.schema.dropTable('verbs');
+    knex.schema.dropTable('adjectives');
+
+  ])
 };
