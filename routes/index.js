@@ -82,11 +82,20 @@ router.post('/addadj', function(req, res, next) {
 });
 
 router.post('/translate', function(req, res, next) {
-  console.log(req.params.userName);
   fs.writeFile('fablibs.txt', req.body.fablibs, 'utf8', function( err ){
     if ( err ) res.send('error:' + err);
   });
   res.redirect('/home');
+});
+
+router.post('/delete', function(req, res, next) {
+  knex('users')
+  .where('userName', req.cookies.username)
+  .del()
+  .then(function (response) {
+    res.clearCookie('username');
+    res.redirect('/');
+  })
 });
 
 

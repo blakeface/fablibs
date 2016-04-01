@@ -15,10 +15,14 @@
   <input type="text" name="word">
 </form>
 
+<form action="/delete" method="post">
+  <input type="submit" name="delete" value="delete">
+</form>
 
 <form class="fablibsBox" action="/translate" method="post">
   <input type="text" name="fablibs">
 </form>
+
 
 <p>
   {{output}}
