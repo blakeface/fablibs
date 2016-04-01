@@ -3,7 +3,14 @@ var router = express.Router();
 var knex = require('knex')(require('../knexfile')['development']);
 var bcrypt = require('bcryptjs');
 var fs = require('fs');
+var replace = require('stream-replace');
 
+var max = knex('nouns');
+console.log(max);
+// var noun = knex('nouns')
+// .where('id', Math.floor(Math.random() * nounMax)
+//   verb,
+//   adj;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -46,10 +53,14 @@ router.post('/user/login', function(req, res, next) {
 });
 
 router.get('/fablibs', function(req, res, next) {
-  fs.readFile('fablibs.txt','utf8', function( err, data ){
+  // noun =
+  // verb =
+  // adj =
+  // fs.readFile('fablibs.txt').pipe(replace/NOUN/g, )
+  // fs.readFile('fablibs.txt','utf8', function( err, data ){
     if ( err ) res.send('error:' + err);
+
     res.render('fablibs', {output: data});
-  })
 });
 
 router.post('/addnoun', function(req, res, next) {
