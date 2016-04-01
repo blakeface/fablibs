@@ -2,24 +2,28 @@
 
 <a href="/logout">Logout</a>
 <a href="/update">Update Info</a>
-
+<h3>ADD A WORD, TURD:</h3>
 <form action="/addnoun" method="post">
   <label for="noun">Noun</label>
-  <input type="text" name="word">
+  <input type="text" name="word" placeholder="ex: cat, burrito, Alan">
 </form>
 <form action="/addverb" method="post">
-  <label for="noun">Verb</label>
-  <input type="text" name="word">
+  <label for="verb">Verb</label>
+  <input type="text" name="word" placeholder="present tense - ex: dribbles, codes, etc.">
 </form>
 <form action="/addadj" method="post">
-  <label for="noun">Adjectives</label>
-  <input type="text" name="word">
+  <label for="adjective">Adjectives</label>
+  <input type="text" name="word" placeholder="ex: moist, succulent, purple">
 </form>
 
 <form action="/delete" method="post">
   <input type="submit" name="delete" value="delete">
 </form>
 
+<h3>FAB-LIB IT:</h3>
+<p>
+  use the keywords 'NOUN', 'VERB', or 'ADJECTIVE' (case-sensitive) to populate a knee-slapping phrase.<br>Example: Alan's ADJECTIVE NOUN VERB like a baws.
+</p>
 <form class="fablibsBox" action="/translate" method="post">
   <input type="text" name="fablibs">
 </form>
