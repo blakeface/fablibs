@@ -117,7 +117,6 @@ router.get('/home/:username', function(req, res, next) {
           if (err) res.send('error:' + err);
           console.log(req.cookies.username);
           res.render('fablibs', {
-            output: data,
             username: req.cookies.username
           });
         })
