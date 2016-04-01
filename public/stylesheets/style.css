@@ -1,31 +1,72 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: rgba(187, 189, 108, .5)
+  font: 14px "Creepster", Helvetica, Arial, sans-serif;
+  background: black;
+}
+
+.welcome h1{
+  font-size: 50px;
+  color: rgb(255, 0, 230);
 }
 
 .output {
   font-size: 80px;
   font-weight: 900;
+  text-align: center;
+  color: rgb(43, 255, 0);
+  margin: 5px;
 }
 
 .instruction {
   width: 65vw;
+  color: white;
 }
 
 .fablibsBox {
   width: 80vw;
+  height: 30px;
 }
 .fablibsBox input{
   width: 100%;
+  font-size: 30px;
 }
 
-.fab, .welcome, .contribute {
+.fab, .welcome, .contribute, .dino {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .fab h3 {
+  font-size: 30px;
+  margin: 0px;
+  color: rgb(242, 255, 0)
+}
 
+.textBox {
+  width: 50vw;
+  color: white;
+}
+
+.textBox input {
+  width: 100%;
+}
+
+.contribute h3 {
+  color: rgb(0, 218, 255);
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.signin {
+  color: rgb(20, 255, 0);
+  font-size: 30px;
+}
+
+.userStuff {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  justify-content: space-between;
+  width: 50vw;
 }
