@@ -51,11 +51,23 @@ router.post('/user/login', function(req, res, next) {
 
 
 router.get('/home', function(req, res, next) {
+  var newWords = {
+    noun: "",
+    verb: "",
+    adj: ""
+  }
+  knex.column('word').from('verbs').orderByRaw('random() limit 1').then(
+    function(data){
+      newWords.verb= data[0].word;
+    });
+  knex.column('word').from('adjectives').orderByRaw('random() limit 1').then(
+    function(data){
+      newWords.adj= data[0].word;
+    });
   knex.column('word').from('nouns').orderByRaw('random() limit 1').then(
     function(data){
-      console.log(data[0].word);
-      var noun =  data[0].word;
-      var stream = fs.createReadStream('fablibs.txt').pipe(replace(/NOUN/g, noun));
+      newWords.noun =  data[0].word;
+      var stream = fs.createReadStream('fablibs.txt').pipe(replace(/NOUN/g, newWords.noun)).pipe(replace(/VERB/g, newWords.verb)).pipe(replace(/ADJECTIVE/g, newWords.adj));
       var wStream = fs.createWriteStream('fablibbed.txt');
 
       stream.on("data", function(data){
@@ -68,8 +80,7 @@ router.get('/home', function(req, res, next) {
       stream.on("end", function(){
         wStream.end();
       })
-    }
-  )
+    });
 })
 
 router.get('/logout', function(req, res, next) {
