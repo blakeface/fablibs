@@ -54,6 +54,11 @@ router.get('/home', function(req, res, next) {
   })
 });
 
+router.get('/logout', function(req, res, next) {
+  res.clearCookie('username');
+  res.redirect('/');
+});
+
 router.post('/addnoun', function(req, res, next) {
   knex('nouns')
   .insert(req.body)
