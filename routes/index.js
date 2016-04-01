@@ -75,7 +75,7 @@ router.get('/home/:username', function(req, res, next) {
           if ( err ) res.send('error:' + err);
           res.render('fablibs', {
             output: data,
-            username: req.cookies.username
+            username: req.params.username
           });
         })
       });
