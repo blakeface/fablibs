@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: 'postgresql',
-    connection: 'postgres://localhost/music-dev',
+    connection: 'postgres://localhost/fablibs-dev',
     pool: {
       min: 2,
       max: 10
@@ -12,6 +12,6 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: 'postgres://localhost/music-prod'
+    connection: 'postgres://localhost/fablibs-prod'
   }
 }
