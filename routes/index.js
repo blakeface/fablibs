@@ -11,8 +11,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/home', function(req, res, next) {
-  res.render('index');
+router.get('/home/:username', function(req, res, next) {
+  res.render('fablibs', {username: req.params.username});
 });
 
 
@@ -35,7 +35,7 @@ router.post('/user/login', function(req, res, next) {
     .first()
     .then(function(response) {
       if (response && bcrypt.compareSync(req.body.password, response.password)) {
-        res.redirect('/home');
+        res.redirect('/home/'+response.userName);
       } else {
         res.render('auth', {
           error: 'Invalid username or password'
