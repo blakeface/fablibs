@@ -3,17 +3,8 @@ var router = express.Router();
 var knex = require('knex')(require('../knexfile')['development']);
 var bcrypt = require('bcryptjs');
 var fs = require('fs');
-<<<<<<< HEAD
 var replace = require('stream-replace');
-=======
-var setCookie = require('set-cookie-parser');
->>>>>>> 2199eba41608572e772090df9e4b56744a089581
 
-var max = knex('nouns');
-// var noun = knex('nouns')
-// .where('id', Math.floor(Math.random() * nounMax)
-//   verb,
-//   adj;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -58,11 +49,26 @@ router.post('/user/login', function(req, res, next) {
 
 
 router.get('/home', function(req, res, next) {
-  fs.readFile('fablibs.txt','utf8', function( err, data ){
-    if ( err ) res.send('error:' + err);
+  knex.column('word').from('nouns').orderByRaw('random() limit 1').then(
+    function(data){
+      console.log(data[0].word);
+      var noun =  data[0].word;
+      var stream = fs.createReadStream('fablibs.txt').pipe(replace(/NOUN/g, noun));
+      var wStream = fs.createWriteStream('fablibbed.txt');
 
-    res.render('fablibs', {output: data});
-});
+      stream.on("data", function(data){
+        wStream.write(data);
+        fs.readFile('fablibbed.txt','utf8', function( err, data ){
+          if ( err ) res.send('error:' + err);
+          res.render('fablibs', {output: data});
+        })
+      });
+      stream.on("end", function(){
+        wStream.end();
+      })
+    }
+  )
+})
 
 router.post('/addnoun', function(req, res, next) {
   knex('nouns')
