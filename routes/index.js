@@ -55,6 +55,20 @@ router.post('/addnoun', function(req, res, next) {
     res.redirect('/fablibs');
   })
 });
+router.post('/addverb', function(req, res, next) {
+  knex('verbs')
+  .insert(req.body)
+  .then(function ( response ){
+    res.redirect('/fablibs');
+  })
+});
+router.post('/addadj', function(req, res, next) {
+  knex('adjectives')
+  .insert(req.body)
+  .then(function ( response ){
+    res.redirect('/fablibs');
+  })
+});
 
 
 
