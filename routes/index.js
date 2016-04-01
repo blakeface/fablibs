@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home/:username', function(req, res, next) {
-  res.cookie('username', req.body.username);
+  res.cookie('username', req.params.username);
   res.render('fablibs', {username: req.params.username});
 });
 
@@ -50,7 +50,7 @@ router.post('/user/login', function(req, res, next) {
 router.get('/home', function(req, res, next) {
   fs.readFile('fablibs.txt','utf8', function( err, data ){
     if ( err ) res.send('error:' + err);
-    res.render('fablibs', {output: data});
+    res.render('fablibs', {output: data, username: req.cookies.username});
   })
 });
 
