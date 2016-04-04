@@ -1,4 +1,5 @@
-// Update with your config settings.
+require('dotenv').load();
+
 
 module.exports = {
   development: {
@@ -8,10 +9,11 @@ module.exports = {
       min: 2,
       max: 10
     }
+
   },
 
   production: {
     client: 'postgresql',
-    connection: 'postgres://localhost/fablibs-prod'
+    connection: 'process.env.DATABASE_URL'
   }
 }
