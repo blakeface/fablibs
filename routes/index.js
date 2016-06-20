@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var knex = require('knex')(require('../knexfile')['development']);
+var knex = require('knex')(require('../knexfile')['production']);
 var bcrypt = require('bcryptjs');
 var fs = require('fs');
 var replace = require('stream-replace');
