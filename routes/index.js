@@ -13,12 +13,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// router.get('/home/:username', function(req, res, next) {
-//   res.cookie('username', req.params.username);
-//   res.render('fablibs', {
-//     username: req.params.username
-//   });
-// });
+router.get('/home/:username', function(req, res, next) {
+  res.cookie('username', req.params.username);
+  res.render('fablibs', {
+    username: req.params.username
+  });
+});
 
 router.get('/update', function(req, res, next) {
   res.render('users', {
